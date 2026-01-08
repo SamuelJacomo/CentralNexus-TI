@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNexus | Central de TI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">TECH<span>NEXUS</span></div>
+            <nav>
+                <button id="btn-tab-dashboard" class="nav-btn active">📊 Dashboard</button>
+                <button id="btn-tab-ativos" class="nav-btn">🖥️ Ativos</button>
+                <button id="btn-tab-chamados" class="nav-btn">🎫 Chamados</button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="dashboard" class="tab-content active">
+                <header><h1>Visão Geral</h1></header>
+                <div class="dash-container">
+                    <div class="dash-section">
+                        <h2 class="dash-title">🖥️ Gestão de Ativos</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card"><h3>Total</h3><p id="count-ativos">0</p></div>
+                            <div class="stat-card online"><h3>Operacionais</h3><p id="count-online">0</p></div>
+                        </div>
+                    </div>
+                    <div class="dash-section">
+                        <h2 class="dash-title">🎫 Gestão de Chamados</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card alert"><h3>Abertos</h3><p id="count-tickets-aberto">0</p></div>
+                            <div class="stat-card warning"><h3>Em Curso</h3><p id="count-tickets-progresso">0</p></div>
+                            <div class="stat-card online"><h3>Concluídos</h3><p id="count-tickets-concluido">0</p></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ativos" class="tab-content">
+                <header><h1>Inventário de Ativos</h1></header>
+                <form id="asset-form" class="tech-form">
+                    <div class="form-row">
+                        <input type="text" id="asset-name" placeholder="Aparelho" required>
+                        <input type="text" id="asset-model" placeholder="Modelo">
+                        <input type="text" id="asset-sn" placeholder="Série">
+                    </div>
+                    <div class="form-row">
+                        <input type="date" id="asset-date">
+                        <input type="text" id="asset-dept" placeholder="Setor">
+                        <input type="text" id="asset-user" placeholder="Usuário Responsável"> 
+                    </div>
+                    <div class="form-row">
+                        <select id="asset-status">
+                            <option value="Operacional">Operacional</option>
+                            <option value="Manutenção">Manutenção</option>
+                            <option value="Reserva">Reserva</option>
+                        </select>
+                        <button type="submit" class="btn-add">Registrar Ativo</button

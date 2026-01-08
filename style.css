@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap');
+
+:root {
+    --bg: #0b0f1a;
+    --side: #020617;
+    --accent: #3b82f6;
+    --card: #1f2937;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border: #374151;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --warning: #f59e0b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0; 
+    font-family: 'Inter', sans-serif;
+    background: var(--bg); 
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+}
+
+.container { display: flex; height: 100vh; overflow: hidden; }
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, var(--side) 0%, #0f172a 100%);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(56, 189, 248, 0.1);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.logo span { color: var(--accent); }
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn:hover {
+    color: #fff;
+    background: rgba(56, 189, 248, 0.1);
+    transform: translateX(5px);
+}
+
+.nav-btn.active {
+    background: var(--accent);
+    color: #020617;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+}
+
+/* --- CONTEÚDO PRINCIPAL --- */
+.main-content { flex: 1; padding: 30px; overflow-y: auto; }
+
+.tab-content {
+    display: none;
+    background: rgba(31, 41, 55, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-content.active { display: block; border-top: 2px solid var(--accent); }
+
+/* --- DASHBOARD --- */
+.dash-container { display: flex; flex-direction: column; gap: 40px; }
+.dash-title {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 4px solid var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.stat-card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    border-bottom: 3px solid var(--accent);
+    transition: 0.3s;
+}
+.stat-card h3 { font-size: 0.8rem; color: var(--text-muted); margin: 0; text-transform: uppercase; }
+.stat-card p { font-size: 2rem; font-weight: 700; margin: 10px 0 0 0; }
+.stat-card.online { border-bottom-color: var(--success); }
+.stat-card.alert { border-bottom-color: var(--danger); }
+.stat-card.warning { border-bottom-color: var(--warning); }
+
+/* --- FORMULÁRIOS --- */
+.tech-form { display: flex; flex-direction: column; gap: 15px; }
+.form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+input, select, textarea {
+    background: #111827;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+textarea { min-height: 100px; line-height: 1.5; font-family: inherit; }
+
+.btn-add {
+    background: var(--accent);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: #020617;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-add:hover { filter: brightness(1.2); transform: translateY(-1px); }
+
+/* --- TABELAS --- */
+.table-container { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--card); }
+table { width: 100%; border-collapse: collapse; }
+th { background: rgba(0,0,0,0.2); color: var(--text-muted); font-size: 11px; text-transform: uppercase; padding: 15px; text-align: left; }
+td { padding: 15px; border-bottom: 1px solid var(--border); font-size: 14px; }
+tr:hover { background: rgba(255,255,255,0.02); }
+
+code { font-family: 'JetBrains Mono', monospace; color: var(--accent); background: rgba(59, 130, 246, 0.1); padding: 2px 5px; border-radius: 4px; }
+
+/* --- TICKETS (CHAMADOS) --- */
+.ticket-grid-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
+
+.ticket-card {
+    background: #111827;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.ticket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.ticket-header span { font-size: 0.75rem; font-weight: 600; }
+
+.status-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+.badge-aberto { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid var(--danger); }
+.badge-andamento { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning); }
+.badge-concluido { background: rgba(34, 197, 94, 0.1); color: var(--success); border: 1px solid var(--success); }
+
+.ticket-actions { display: flex; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border); }
+
+.btn-step {
+    background: var(--accent);
+    color: #020617;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-step.conclui { background: var(--success); color: #fff; }
+
+.btn-trash { background: none; border: none; cursor: pointer; font-size: 1.1rem; opacity: 0.5; transition: 0.3s; }
+.btn-trash:hover { opacity: 1; transform: scale(1.1); }
+
+/* --- UTILS --- */
+.btn-danger { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+/* Força o formulário de tickets a ser horizontal */
+.ticket-header-form .form-row {
+    display: flex;
+    flex-direction: row; /* Alinha em linha */
+    align-items: flex-end; /* Alinha o botão por baixo se os campos variarem */
+    gap: 10px;
+    flex-wrap: nowrap; /* Impede de quebrar linha em telas grandes */
+}
+
+/* Garante que os inputs não fiquem gigantes e o textarea acompanhe a altura */
+.ticket-header-form input, 
+.ticket-header-form select {
+    flex: 1; 
+    min-width: 120px;
+}
+
+.ticket-header-form textarea {
+    flex: 2; /* Dá mais espaço para a descrição */
+    min-height: 45px;
+    height: 45px;
+    resize: none;
+}
+
+/* --- AJUSTES DE TABELA E STATUS --- */
+.status-badge.operacional { background: rgba(34, 197, 94, 0.1); color: var(--success); border: 1px solid var(--success); }
+.status-badge.manutenção { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid var(--danger); }
+.status-badge.reserva { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning); }
+
+/* --- AJUSTE BOTÃO DANGER --- */
+.btn-danger { background: var(--danger) !important; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+.btn-danger:hover { filter: brightness(1.2); }
+
+/* --- SCROLLBAR CUSTOMIZADA (ESTILO MODERNO) --- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* --- RESPONSIVIDADE PARA O PORTAL DO USUÁRIO --- */
+@media (max-width: 768px) {
+    .container { flex-direction: column; height: auto; overflow: visible; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main-content { padding: 15px; }
+    .form-row { flex-direction: column; }
+    .ticket-header-form .form-row { flex-direction: column; flex-wrap: wrap; }
+}
+
+/* Garante que o checkbox de seleção na tabela apareça bem */
+input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+}
