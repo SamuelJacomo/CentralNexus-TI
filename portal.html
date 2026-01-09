@@ -3,133 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suporte TI | Abrir Chamado</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .user-portal-container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        .portal-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .success-msg {
-            display: none;
-            background: #10b981; /* Cor de sucesso padrão */
-            color: #020617;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .tech-form { display: flex; flex-direction: column; gap: 15px; }
-        .tech-form input, .tech-form textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
-            color: white;
-        }
-    </style>
+    <title>TechNexus | Portal do Usuário</title>
+    <link rel="stylesheet" href="style-cliente.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body style="overflow-y: auto; background: var(--bg, #0f172a);">
-    <div class="user-portal-container">
-        <div class="portal-header">
-            <div class="logo">TECH<span>NEXUS</span></div>
-            <p style="color: #94a3b8;">Portal de Chamados do Usuário</p>
-        </div>
+<body>
 
-        <div class="tab-content active" style="display: block;">
-            <form id="portal-form" class="tech-form">
-                <div>
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Seu Nome:</label>
-                    <input type="text" id="user-name" placeholder="Quem está solicitando?" required>
+    <div class="terminal-container">
+        <header class="window-header">
+            <div class="window-controls">
+                <span class="dot close"></span>
+                <span class="dot minimize"></span>
+                <span class="dot maximize"></span>
+            </div>
+            <div class="window-title">nexus_user_terminal — Solicitar Suporte</div>
+        </header>
+
+        <div class="main-content">
+            <div class="branding">
+                <div class="logo">TECH<span>NEXUS</span></div>
+                <p class="status-line"><span class="pulse"></span> SISTEMA DE PROTOCOLO ATIVO</p>
+            </div>
+
+            <form id="client-ticket-form" class="tech-form">
+                <div class="input-section">
+                    <label><i data-lucide="user"></i> NOME COMPLETO OU ID</label>
+                    <input type="text" id="cli-user" placeholder="Digite como deseja ser identificado" required>
                 </div>
 
-                <div>
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Assunto:</label>
-                    <input type="text" id="user-subject" placeholder="Ex: Erro no Sistema / Troca de Mouse" required>
+                <div class="input-section">
+                    <label><i data-lucide="alert-circle"></i> ASSUNTO DO INCIDENTE</label>
+                    <input type="text" id="cli-subject" placeholder="Ex: Minha internet parou de funcionar" required>
                 </div>
 
-                <div>
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Equipamento / Local:</label>
-                    <input type="text" id="user-asset" placeholder="Onde está o problema?">
+                <div class="input-section">
+                    <label><i data-lucide="align-left"></i> RELATO DETALHADO</label>
+                    <textarea id="cli-desc" placeholder="Explique detalhadamente o que aconteceu..." rows="5" style="width: 100%; background: #16161e; border: 1px solid #414868; color: white; padding: 12px; border-radius: 4px; outline: none; font-family: inherit; resize: none;"></textarea>
                 </div>
 
-                <div>
-                    <label style="display: block; margin-bottom: 8px; font-size: 0.9rem;">Descrição:</label>
-                    <textarea id="user-desc" placeholder="Conte-nos o que aconteceu..." rows="5"></textarea>
+                <div class="form-row">
+                    <div class="input-section">
+                        <label><i data-lucide="tag"></i> CATEGORIA</label>
+                        <select id="cli-category">
+                            <option value="SISTEMA">SISTEMA</option>
+                            <option value="REDE">REDE</option>
+                            <option value="HARDWARE">HARDWARE</option>
+                            <option value="ACESSO">ACESSO</option>
+                        </select>
+                    </div>
+
+                    <div class="input-section">
+                        <label><i data-lucide="activity"></i> IMPACTO</label>
+                        <select id="cli-prio">
+                            <option value="BAIXO">BAIXO (Rotina)</option>
+                            <option value="MEDIO" selected>MÉDIO (Urgente)</option>
+                            <option value="ALTO">ALTO (Crítico)</option>
+                        </select>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-add" style="width: 100%; height: 50px; font-size: 1.1rem; margin-top: 10px; cursor: pointer;">
-                    ENVIAR CHAMADO AGORA
+                <button type="submit" class="btn-send">
+                    ENVIAR PROTOCOLO <i data-lucide="terminal"></i>
                 </button>
             </form>
+        </div>
 
-            <div id="success-alert" class="success-msg">
-                ✅ Chamado enviado! Ele já apareceu no painel do TI.
-            </div>
+        <footer class="footer">
+            <p>CONEXÃO SEGURA ATRAVÉS DO TECH_NEXUS_CORE</p>
+        </footer>
+    </div>
+
+    <div id="success-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <i data-lucide="check-circle" class="icon-success"></i>
+            <h2>SOLICITAÇÃO RECEBIDA</h2>
+            <p>Seu chamado foi enviado para a fila do administrador.</p>
+            <button onclick="closeModal()" class="btn-outline">NOVO CHAMADO</button>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+    <script>
+        // Inicializa os ícones
+        lucide.createIcons();
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyD3ar5aDgXTSt1pNo-Bm5YrP0TfLi2IpQY",
-            authDomain: "nexusstart-670d7.firebaseapp.com",
-            databaseURL: "https://nexusstart-670d7-default-rtdb.firebaseio.com",
-            projectId: "nexusstart-670d7",
-            storageBucket: "nexusstart-670d7.firebasestorage.app",
-            messagingSenderId: "917352175296",
-            appId: "1:917352175296:web:45c09a8f9173b7a064bf25",
-            measurementId: "G-2RX9VZX98D"
-        };
+        const form = document.getElementById('client-ticket-form');
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        document.getElementById('portal-form').addEventListener('submit', (e) => {
+        form.onsubmit = (e) => {
             e.preventDefault();
-            
-            // Desativa o botão para evitar múltiplos cliques
-            const btn = e.target.querySelector('button');
-            btn.disabled = true;
-            btn.innerText = "ENVIANDO...";
 
-            const novoTicket = {
-                id: Math.floor(1000 + Math.random() * 9000),
-                subject: document.getElementById('user-subject').value || "Sem Assunto",
-                user: document.getElementById('user-name').value || "Anônimo",
-                asset: document.getElementById('user-asset').value || "Não informado",
-                priority: "Média", 
-                desc: document.getElementById('user-desc').value || "",
-                status: 'Aberto',
-                date: new Date().toLocaleString()
+            // Captura os dados e gera um ID amigável
+            const newTicket = {
+                id: "CLI-" + Math.floor(1000 + Math.random() * 9000),
+                user: document.getElementById('cli-user').value,
+                subject: document.getElementById('cli-subject').value,
+                desc: document.getElementById('cli-desc').value, // PEGA A DESCRIÇÃO
+                category: document.getElementById('cli-category').value,
+                prio: document.getElementById('cli-prio').value,
+                status: 'aberto'
             };
 
-            const ticketsRef = ref(db, 'tickets/');
-            push(ticketsRef, novoTicket)
-                .then(() => {
-                    document.getElementById('portal-form').style.display = 'none';
-                    document.getElementById('success-alert').style.display = 'block';
-                    
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
-                })
-                .catch((error) => {
-                    console.error("ERRO FIREBASE:", error.code, error.message);
-                    alert("Erro ao enviar: " + error.message);
-                    btn.disabled = false;
-                    btn.innerText = "ENVIAR CHAMADO AGORA";
-                });
-        });
+            // Salva no LocalStorage compartilhado
+            let tickets = JSON.parse(localStorage.getItem('nexus_v2_db')) || [];
+            tickets.push(newTicket);
+            localStorage.setItem('nexus_v2_db', JSON.stringify(tickets));
+
+            // Mostra o modal de sucesso e limpa o formulário
+            document.getElementById('success-modal').style.display = 'flex';
+            form.reset();
+        };
+
+        function closeModal() {
+            document.getElementById('success-modal').style.display = 'none';
+        }
     </script>
 </body>
 </html>

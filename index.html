@@ -3,59 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechNexus | Central de TI</title>
+    <title>TechNexus | Admin Control</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="logo">TECH<span>NEXUS</span></div>
-            <nav>
-                <button id="btn-tab-dashboard" class="nav-btn active">📊 Dashboard</button>
-                <button id="btn-tab-ativos" class="nav-btn">🖥️ Ativos</button>
-                <button id="btn-tab-chamados" class="nav-btn">🎫 Chamados</button>
-            </nav>
-        </aside>
+    <div class="terminal-window">
+        <header class="window-header">
+            <div class="window-controls">
+                <span class="dot close"></span>
+                <span class="dot minimize"></span>
+                <span class="dot maximize"></span>
+            </div>
+            <div class="window-title">bash — nexus@admin: ~/gestao_chamados</div>
+        </header>
 
-        <main class="main-content">
-            <section id="dashboard" class="tab-content active">
-                <header><h1>Visão Geral</h1></header>
-                <div class="dash-container">
-                    <div class="dash-section">
-                        <h2 class="dash-title">🖥️ Gestão de Ativos</h2>
-                        <div class="stats-grid">
-                            <div class="stat-card"><h3>Total</h3><p id="count-ativos">0</p></div>
-                            <div class="stat-card online"><h3>Operacionais</h3><p id="count-online">0</p></div>
+        <div class="container">
+            <aside class="sidebar">
+                <div class="logo">TECH<span>NEXUS</span></div>
+                <nav>
+                    <button class="nav-btn active" data-tab="dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</button>
+                    <button class="nav-btn" data-tab="chamados"><i data-lucide="ticket"></i> Operação</button>
+                    <button class="nav-btn" data-tab="historico"><i data-lucide="history"></i> Histórico</button>
+                </nav>
+                <div class="system-stats">
+                    <p>SISTEMA: <span class="green">ONLINE</span></p>
+                    <p>SESSÃO: <span class="cyan">ADMIN_NEXUS</span></p>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                
+                <section id="dashboard" class="tab-content active">
+                    <header class="section-header">
+                        <h1><span class="prompt">➜</span> Monitor de Performance
+                         </h1>
+                    </header>
+                    
+                    <div class="dash-grid-v3">
+                        <div class="metric-card">
+                            <label><span class="dot-blink red-bg"></span> ABERTOS</label>
+                            <p id="count-aberto" class="red">0</p>
+                            <span class="card-footer">Aguardando Triagem</span>
+                        </div>
+
+                        <div class="metric-card">
+                            <label><span class="dot-blink yellow-bg"></span> EM CURSO</label>
+                            <p id="count-andamento" class="yellow">0</p>
+                            <span class="card-footer">Processamento Ativo</span>
+                        </div>
+
+                        <div class="metric-card">
+                            <label><span class="dot-blink green-bg"></span> CONCLUÍDOS</label>
+                            <p id="count-concluido" class="green">0</p>
+                            <span class="card-footer">Protocolos Encerrados</span>
+                        </div>
+
+                        <div class="metric-card total">
+                            <label><i data-lucide="database" style="width: 12px; height: 12px;"></i> TOTAL GERAL</label>
+                            <p id="count-total">0</p>
+                            <span class="card-footer">Base de Dados Nexus</span>
                         </div>
                     </div>
-                    <div class="dash-section">
-                        <h2 class="dash-title">🎫 Gestão de Chamados</h2>
-                        <div class="stats-grid">
-                            <div class="stat-card alert"><h3>Abertos</h3><p id="count-tickets-aberto">0</p></div>
-                            <div class="stat-card warning"><h3>Em Curso</h3><p id="count-tickets-progresso">0</p></div>
-                            <div class="stat-card online"><h3>Concluídos</h3><p id="count-tickets-concluido">0</p></div>
+                </section>
+
+                <section id="chamados" class="tab-content">
+                    <div class="section-header-flex">
+                        <h1><span class="prompt">➜</span> Quadro de Operação</h1>
+                        <button class="btn-new" onclick="openModal()">+ NOVO CHAMADO</button>
+                    </div>
+                    <div class="kanban-board">
+                        <div class="kanban-col">
+                            <h3 class="red">● AGUARDANDO</h3>
+                            <div id="list-aberto" class="card-list"></div>
                         </div>
+                        <div class="kanban-col">
+                            <h3 class="yellow">● EM EXECUÇÃO</h3>
+                            <div id="list-andamento" class="card-list"></div>
+                        </div>
+                        <div class="kanban-col">
+                            <h3 class="green">● CONCLUÍDOS</h3>
+                            <div id="list-concluido" class="card-list"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="historico" class="tab-content">
+                    <header class="section-header">
+                        <h1><span class="prompt">➜</span> Log de Chamados Finalizados</h1>
+                    </header>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Solicitante</th>
+                                    <th>Assunto</th>
+                                    <th>Categoria</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-historico"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div id="modal-admin" class="modal-overlay" style="display:none">
+        <div class="modal-content">
+            <header class="modal-header">
+                <div class="header-status"><i data-lucide="terminal"></i> NEXUS_CORE // NOVO_CHAMADO</div>
+            </header>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label><i data-lucide="user"></i> SOLICITANTE</label>
+                    <input type="text" id="adm-user" placeholder="Nome do usuário...">
+                </div>
+                <div class="input-group">
+                    <label><i data-lucide="type"></i> ASSUNTO</label>
+                    <input type="text" id="adm-subject" placeholder="Título curto do problema...">
+                </div>
+                <div class="form-row-grid">
+                    <div class="input-group">
+                        <label>CATEGORIA</label>
+                        <select id="adm-category">
+                            <option value="SISTEMA">SISTEMA</option>
+                            <option value="REDE">REDE</option>
+                            <option value="HARDWARE">HARDWARE</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>URGÊNCIA</label>
+                        <select id="adm-prio">
+                            <option value="ALTO">ALTA</option>
+                            <option value="MEDIO" selected>MÉDIA</option>
+                            <option value="BAIXO">BAIXA</option>
+                        </select>
                     </div>
                 </div>
-            </section>
+                <div class="input-group">
+                    <label><i data-lucide="align-left"></i> DESCRIÇÃO DO PROBLEMA</label>
+                    <textarea id="adm-desc" rows="4" placeholder="Detalhes técnicos ou relato do cliente..."></textarea>
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <button class="btn-close-alt" onclick="closeModal()">CANCELAR</button>
+                <button class="btn-save-alt" onclick="createAdminTicket()">REGISTRAR</button>
+            </footer>
+        </div>
+    </div>
 
-            <section id="ativos" class="tab-content">
-                <header><h1>Inventário de Ativos</h1></header>
-                <form id="asset-form" class="tech-form">
-                    <div class="form-row">
-                        <input type="text" id="asset-name" placeholder="Aparelho" required>
-                        <input type="text" id="asset-model" placeholder="Modelo">
-                        <input type="text" id="asset-sn" placeholder="Série">
-                    </div>
-                    <div class="form-row">
-                        <input type="date" id="asset-date">
-                        <input type="text" id="asset-dept" placeholder="Setor">
-                        <input type="text" id="asset-user" placeholder="Usuário Responsável"> 
-                    </div>
-                    <div class="form-row">
-                        <select id="asset-status">
-                            <option value="Operacional">Operacional</option>
-                            <option value="Manutenção">Manutenção</option>
-                            <option value="Reserva">Reserva</option>
-                        </select>
-                        <button type="submit" class="btn-add">Registrar Ativo</button
+    <script src="script.js"></script>
+</body>
+</html>

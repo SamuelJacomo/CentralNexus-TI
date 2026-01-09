@@ -1,0 +1,88 @@
+:root {
+    --bg: #1a1b26;
+    --win: #24283b;
+    --border: #414868;
+    --text: #c0caf5;
+    --text-dim: #565f89;
+    --cyan: #7dcfff;
+    --green: #9ece6a;
+    --red: #f7768e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.terminal-container {
+    width: 100%;
+    max-width: 550px;
+    background: var(--win);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.window-header {
+    background: #16161e;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.window-controls { display: flex; gap: 8px; margin-right: 20px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.close { background: var(--red); }
+.dot.minimize { background: #e0af68; }
+.dot.maximize { background: var(--green); }
+.window-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); }
+
+.main-content { padding: 40px; }
+
+.branding { text-align: center; margin-bottom: 35px; }
+.logo { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono'; margin-bottom: 10px; }
+.logo span { color: var(--cyan); }
+.status-line { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--green); display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+.pulse { width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.input-section { margin-bottom: 20px; }
+.input-section label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: bold; color: var(--text-dim); margin-bottom: 10px; text-transform: uppercase; }
+
+input, select {
+    width: 100%; background: #16161e; border: 1px solid var(--border);
+    color: white; padding: 12px; border-radius: 4px; outline: none; transition: 0.3s;
+}
+input:focus { border-color: var(--cyan); background: #1c1c27; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.btn-send {
+    width: 100%; background: var(--cyan); color: #16161e; border: none;
+    padding: 15px; border-radius: 4px; font-weight: 800; cursor: pointer;
+    margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: 0.3s; font-family: 'JetBrains Mono';
+}
+.btn-send:hover { background: #a4e1ff; transform: translateY(-2px); }
+
+.footer { background: #16161e; padding: 10px; text-align: center; font-size: 9px; color: var(--text-dim); font-family: 'JetBrains Mono'; }
+
+/* Modal Sucesso */
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px);
+}
+.modal-card { text-align: center; background: var(--win); padding: 40px; border-radius: 8px; border: 1px solid var(--cyan); }
+.icon-success { width: 50px; height: 50px; color: var(--green); margin-bottom: 20px; }
+.btn-outline { background: transparent; border: 1px solid var(--text); color: var(--text); padding: 10px 20px; cursor: pointer; margin-top: 20px; }
