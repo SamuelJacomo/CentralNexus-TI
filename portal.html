@@ -63,8 +63,8 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-send" id="btn-text">
-                    ENVIAR PROTOCOLO <i data-lucide="terminal"></i>
+                <button type="submit" class="btn-send" id="btn-submit-main">
+                    <span id="btn-text-content">ENVIAR PROTOCOLO</span> <i data-lucide="terminal"></i>
                 </button>
             </form>
         </div>
@@ -79,7 +79,7 @@
             <i data-lucide="check-circle" class="icon-success"></i>
             <h2>SOLICITAÇÃO RECEBIDA</h2>
             <p>Seu chamado foi enviado para a fila do administrador.</p>
-            <button onclick="closeModal()" class="btn-outline">NOVO CHAMADO</button>
+            <button id="btn-new-ticket" class="btn-outline">NOVO CHAMADO</button>
         </div>
     </div>
 
@@ -97,27 +97,27 @@
             appId: "1:581359087950:web:9222cf6555f44356c8ee1f"
         };
 
-        // Inicializa Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Inicializa ícones
         lucide.createIcons();
 
         const form = document.getElementById('client-ticket-form');
+        const btnSubmit = document.getElementById('btn-submit-main');
+        const btnText = document.getElementById('btn-text-content');
 
-        form.onsubmit = async (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('btn-text');
-            btn.disabled = true;
-            btn.innerText = "ENVIANDO...";
+            
+            // Bloqueia o botão para evitar múltiplos cliques no celular
+            btnSubmit.disabled = true;
+            btnText.innerText = "ENVIANDO...";
 
-            // Monta o objeto exatamente como o Admin espera
             const newTicket = {
                 id: "CLI-" + Math.floor(1000 + Math.random() * 9000),
-                user: document.getElementById('cli-user').value,
-                subject: document.getElementById('cli-subject').value,
-                desc: document.getElementById('cli-desc').value,
+                user: document.getElementById('cli-user').value.trim(),
+                subject: document.getElementById('cli-subject').value.trim(),
+                desc: document.getElementById('cli-desc').value.trim(),
                 category: document.getElementById('cli-category').value,
                 prio: document.getElementById('cli-prio').value,
                 status: 'aberto',
@@ -125,27 +125,27 @@
             };
 
             try {
-                // Envia para a nuvem na pasta 'tickets'
                 const ticketsRef = ref(db, 'tickets');
+                // O await garante que o JS espere o Firebase confirmar o recebimento
                 await push(ticketsRef, newTicket);
 
-                // Sucesso
+                // Se chegou aqui, funcionou
                 document.getElementById('success-modal').style.display = 'flex';
                 form.reset();
             } catch (error) {
-                alert("Erro de conexão com o servidor Nexus: " + error.message);
+                console.error("Erro Firebase:", error);
+                alert("ERRO DE CONEXÃO: " + error.message);
             } finally {
-                btn.disabled = false;
-                btn.innerHTML = 'ENVIAR PROTOCOLO <i data-lucide="terminal"></i>';
+                btnSubmit.disabled = false;
+                btnText.innerText = "ENVIAR PROTOCOLO";
                 lucide.createIcons();
             }
-        };
-    </script>
+        });
 
-    <script>
-        function closeModal() {
+        // Função do botão de novo chamado (dentro do module para funcionar com o Firebase)
+        document.getElementById('btn-new-ticket').onclick = () => {
             document.getElementById('success-modal').style.display = 'none';
-        }
+        };
     </script>
 </body>
 </html>
