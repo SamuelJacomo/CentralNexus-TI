@@ -260,3 +260,74 @@ td:first-child {
     font-weight: bold;
     color: var(--text-dim);
 }
+/* AJUSTE GLOBAL PARA MOBILE */
+body {
+    overflow-y: auto; /* Permite rolar a página no celular */
+    height: auto;
+    min-height: 100vh;
+}
+
+.terminal-window {
+    height: auto; /* Janela cresce conforme o conteúdo no mobile */
+    min-height: 90vh;
+    max-width: 100%;
+}
+
+/* RESPONSIVIDADE DA SIDEBAR (MENU) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Sidebar vai para cima, conteúdo para baixo */
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .nav-btn {
+        justify-content: center; /* Centraliza botões no mobile */
+    }
+
+    .system-stats {
+        display: none; /* Esconde stats técnicos no mobile para poupar espaço */
+    }
+
+    /* KANBAN EM COLUNA ÚNICA NO CELULAR */
+    .kanban-board {
+        grid-template-columns: 1fr; /* Uma coluna por vez */
+        gap: 15px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    /* MODAL (FORMULÁRIO) NO CELULAR */
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+
+    .form-row-grid {
+        grid-template-columns: 1fr; /* Inputs um embaixo do outro */
+    }
+}
+
+/* AJUSTE DAS TABELAS NO MOBILE */
+@media (max-width: 600px) {
+    .table-container {
+        overflow-x: auto; /* Permite deslizar a tabela para o lado */
+    }
+    
+    th, td {
+        padding: 10px 5px;
+        font-size: 11px;
+    }
+}
