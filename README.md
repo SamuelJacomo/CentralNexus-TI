@@ -1,6 +1,8 @@
+<img width="1024" height="1024" alt="Gemini_Generated_Image_8qjmbt8qjmbt8qjm" src="https://github.com/user-attachments/assets/94a9c482-a4ba-4938-a679-c3577225fc8b" />
+
+
 ⚡ TechNexus | Cloud Support System
 O TechNexus é um ecossistema de gerenciamento de chamados técnicos em tempo real. O projeto simula uma interface de terminal de alta tecnologia e utiliza uma arquitetura baseada em nuvem para conectar usuários e administradores instantaneamente.
-
 🚀 Funcionalidades Principais
 Painel Admin (Kanban): Gestão visual de chamados dividida por status (Aberto, Em Andamento, Concluído).
 
