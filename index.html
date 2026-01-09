@@ -34,32 +34,26 @@
             </aside>
 
             <main class="main-content">
-                
                 <section id="dashboard" class="tab-content active">
                     <header class="section-header">
-                        <h1><span class="prompt">➜</span> Monitor de Performance
-                         </h1>
+                        <h1><span class="prompt">➜</span> Monitor de Performance</h1>
                     </header>
-                    
                     <div class="dash-grid-v3">
                         <div class="metric-card">
                             <label><span class="dot-blink red-bg"></span> ABERTOS</label>
                             <p id="count-aberto" class="red">0</p>
                             <span class="card-footer">Aguardando Triagem</span>
                         </div>
-
                         <div class="metric-card">
                             <label><span class="dot-blink yellow-bg"></span> EM CURSO</label>
                             <p id="count-andamento" class="yellow">0</p>
                             <span class="card-footer">Processamento Ativo</span>
                         </div>
-
                         <div class="metric-card">
                             <label><span class="dot-blink green-bg"></span> CONCLUÍDOS</label>
                             <p id="count-concluido" class="green">0</p>
                             <span class="card-footer">Protocolos Encerrados</span>
                         </div>
-
                         <div class="metric-card total">
                             <label><i data-lucide="database" style="width: 12px; height: 12px;"></i> TOTAL GERAL</label>
                             <p id="count-total">0</p>
@@ -156,6 +150,31 @@
         </div>
     </div>
 
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBn7_OIHM1Bc31GQk5cYJSzJeGiAFuVkrs",
+        authDomain: "technexus-b4b60.firebaseapp.com",
+        databaseURL: "https://technexus-b4b60-default-rtdb.firebaseio.com",
+        projectId: "technexus-b4b60",
+        storageBucket: "technexus-b4b60.firebasestorage.app",
+        messagingSenderId: "581359087950",
+        appId: "1:581359087950:web:9222cf6555f44356c8ee1f"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      // Tornando globais para o script.js
+      window.db = db;
+      window.dbRef = ref;
+      window.dbPush = push;
+      window.dbOnValue = onValue;
+      window.dbUpdate = update;
+      window.dbRemove = remove;
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
