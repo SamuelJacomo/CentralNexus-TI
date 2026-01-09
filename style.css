@@ -1,17 +1,16 @@
 :root {
-    --bg: #1a1b26;
-    --win-bg: #24283b;
-    --side-bg: #1f2335;
-    --border: #414868;
+    --bg: #0d0f14;       
+    --win-bg: #16161e;   
+    --side-bg: #101014;  
+    --border: #24283b;   
     --text: #c0caf5;
-    --text-dim: #565f89;
+    --text-dim: #787c99; 
     --red: #f7768e;
     --yellow: #e0af68;
     --green: #9ece6a;
     --cyan: #7dcfff;
     --magenta: #bb9af7;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; }
 
 body {
