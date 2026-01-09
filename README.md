@@ -42,7 +42,12 @@ O Admin pode avançar o status do ticket apenas clicando no card, o que atualiza
 O maior diferencial deste projeto foi a transição do armazenamento local (localStorage) para uma arquitetura Serverless. 
 Isso permitiu resolver o problema de silos de dados, criando uma aplicação verdadeiramente colaborativa e multi-dispositivo.
 
+📋 Como rodar este projeto
+Clone o repositório.
 
+Certifique-se de configurar suas chaves do Firebase no index.html e portal.html.
+
+Utilize o Live Server ou suba para o GitHub Pages
 
 
 
