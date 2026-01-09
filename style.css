@@ -85,8 +85,16 @@ body {
 .card-id { font-size: 10px; color: var(--text-dim); font-weight: bold; }
 .card-subject { font-size: 14px; margin: 8px 0; color: #fff; }
 .card-user { font-size: 11px; color: var(--cyan); }
-.card-desc-preview { font-size: 10px; color: var(--text-dim); margin-top: 10px; font-style: italic; }
-
+.card-desc-preview { 
+    font-size: 11px; 
+    color: #a9b1d6; /* Azul claro acinzentado (mais legível) */
+    margin-top: 12px; 
+    font-style: italic;
+    line-height: 1.4;
+    border-top: 1px solid rgba(65, 72, 104, 0.4); /* Divisor sutil */
+    padding-top: 8px;
+    display: block;
+}
 /* MODAL PREMIUM CSS */
 .modal-overlay {
     position: fixed; inset: 0; background: rgba(10, 10, 15, 0.85);
@@ -240,4 +248,16 @@ td { padding: 15px; border-bottom: 1px solid var(--border); font-size: 13px; }
 /* Ajuste sutil na tabela para o botão não encostar na borda */
 td {
     vertical-align: middle;
+}
+/* Ajuste para alinhar o conteúdo da tabela verticalmente */
+table tbody td {
+    vertical-align: middle;
+    padding: 12px 15px;
+}
+
+/* Garante que o ID do chamado tenha um destaque técnico */
+td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    color: var(--text-dim);
 }
