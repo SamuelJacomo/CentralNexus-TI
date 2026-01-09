@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-send">
+                <button type="submit" class="btn-send" id="btn-text">
                     ENVIAR PROTOCOLO <i data-lucide="terminal"></i>
                 </button>
             </form>
@@ -83,36 +83,66 @@
         </div>
     </div>
 
-    <script>
-        // Inicializa os ícones
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBn7_OIHM1Bc31GQk5cYJSzJeGiAFuVkrs",
+            authDomain: "technexus-b4b60.firebaseapp.com",
+            databaseURL: "https://technexus-b4b60-default-rtdb.firebaseio.com",
+            projectId: "technexus-b4b60",
+            storageBucket: "technexus-b4b60.firebasestorage.app",
+            messagingSenderId: "581359087950",
+            appId: "1:581359087950:web:9222cf6555f44356c8ee1f"
+        };
+
+        // Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Inicializa ícones
         lucide.createIcons();
 
         const form = document.getElementById('client-ticket-form');
 
-        form.onsubmit = (e) => {
+        form.onsubmit = async (e) => {
             e.preventDefault();
+            const btn = document.getElementById('btn-text');
+            btn.disabled = true;
+            btn.innerText = "ENVIANDO...";
 
-            // Captura os dados e gera um ID amigável
+            // Monta o objeto exatamente como o Admin espera
             const newTicket = {
                 id: "CLI-" + Math.floor(1000 + Math.random() * 9000),
                 user: document.getElementById('cli-user').value,
                 subject: document.getElementById('cli-subject').value,
-                desc: document.getElementById('cli-desc').value, // PEGA A DESCRIÇÃO
+                desc: document.getElementById('cli-desc').value,
                 category: document.getElementById('cli-category').value,
                 prio: document.getElementById('cli-prio').value,
-                status: 'aberto'
+                status: 'aberto',
+                timestamp: Date.now()
             };
 
-            // Salva no LocalStorage compartilhado
-            let tickets = JSON.parse(localStorage.getItem('nexus_v2_db')) || [];
-            tickets.push(newTicket);
-            localStorage.setItem('nexus_v2_db', JSON.stringify(tickets));
+            try {
+                // Envia para a nuvem na pasta 'tickets'
+                const ticketsRef = ref(db, 'tickets');
+                await push(ticketsRef, newTicket);
 
-            // Mostra o modal de sucesso e limpa o formulário
-            document.getElementById('success-modal').style.display = 'flex';
-            form.reset();
+                // Sucesso
+                document.getElementById('success-modal').style.display = 'flex';
+                form.reset();
+            } catch (error) {
+                alert("Erro de conexão com o servidor Nexus: " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'ENVIAR PROTOCOLO <i data-lucide="terminal"></i>';
+                lucide.createIcons();
+            }
         };
+    </script>
 
+    <script>
         function closeModal() {
             document.getElementById('success-modal').style.display = 'none';
         }
